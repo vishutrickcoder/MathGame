@@ -36,6 +36,37 @@ document.getElementById("startreset").onclick = function(){
     }
 }
 
+
+// correct or Wrong Answer 
+for(i=1;i<5;i++){
+    document.getElementById("box"+i).onclick = function(){
+    // checking if we are playing 
+    if(playing == true){
+        if(this.innerHTML == correctAnswer){
+            //correct Answer
+            score++;
+
+            document.getElementById("score-value").innerHTML = score;
+            // hide and show correct box
+            hide('wrong');
+            show("correct");
+            setTimeout(function(){
+                hide("correct")
+            },1000);
+
+            //Generate New Question
+            generateQA();
+        }else{
+            hide('correct');
+            show("wrong");
+            setTimeout(function(){
+                hide("wrong")
+            },1000);
+        }
+    } 
+}
+}
+
 //Functions
 
 function startCountdown(){
@@ -87,7 +118,9 @@ function generateQA(){
             do{
                 wrongAns =(1 + Math.round(Math.random()*99))*(1 + Math.round(Math.random()*99));
         document.getElementById("box"+i).innerHTML = wrongAns;
-            }while(wrongAns == correctAnswer)
+            }while(answer.indexOf(wrongAns) >-1)   // preventing by output with 2 same value of correct answer
+
+            answer.push(wrongAns);
          
     }
     }
